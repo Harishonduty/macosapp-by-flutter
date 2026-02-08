@@ -43,3 +43,28 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Large files and archives (GitHub limit is 100MB)
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.apk
+*.aab
+*.ipa
+
+# Gradle cache
+.gradle/
+**/android/.gradle/
+
+# iOS/macOS
+**/ios/Pods/
+**/ios/.symlinks/
+**/macos/Pods/
+**/macos/.symlinks/
+
+# Windows
+*.exe
+*.dll
+*.pdb

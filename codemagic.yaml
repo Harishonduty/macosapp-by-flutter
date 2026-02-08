@@ -28,14 +28,19 @@ workflows:
         script: |
           find . -name "Podfile" -execdir pod install \;
       
-      - name: Flutter build IPA
+      - name: Flutter build iOS (Unsigned)
         script: |
-          flutter build ipa --release \
-            --build-name=1.0.0 \
-            --build-number=$BUILD_NUMBER
+          flutter build ios --release --no-codesign
+      
+      - name: Create Payload folder for IPA
+        script: |
+          mkdir -p Payload
+          cp -r build/ios/iphoneos/Runner.app Payload/
+          zip -r holy_cross_app.ipa Payload
     
     artifacts:
-      - build/ios/ipa/*.ipa
+      - "*.ipa"
+      - build/ios/iphoneos/Runner.app
       - /tmp/xcodebuild_logs/*.log
       - flutter_drive.log
     

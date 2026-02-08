@@ -28,19 +28,19 @@ workflows:
         script: |
           find . -name "Podfile" -execdir pod install \;
       
-      - name: Flutter build iOS (Unsigned)
+      - name: Set up code signing
         script: |
-          flutter build ios --release --no-codesign
+          keychain initialize
+          app-store-connect fetch-signing-files "com.school.holycrossangloindian.holyCrossApp" --type IOS_APP_DEVELOPMENT --create
+          keychain add-certificates
       
-      - name: Create Payload folder for IPA
+      - name: Flutter build IPA
         script: |
-          mkdir -p Payload
-          cp -r build/ios/iphoneos/Runner.app Payload/
-          zip -r holy_cross_app.ipa Payload
+          flutter build ipa --release \
+            --export-options-plist=$HOME/export_options.plist
     
     artifacts:
-      - "*.ipa"
-      - build/ios/iphoneos/Runner.app
+      - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
       - flutter_drive.log
     

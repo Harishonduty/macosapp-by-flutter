@@ -215,7 +215,6 @@ class _PrincipalTimetableScreenState extends State<PrincipalTimetableScreen> {
   Widget _buildTimetable() {
     return PhotoView(
       imageProvider: CachedNetworkImageProvider(_timetableUrl!),
-      backgroundColor: Colors.white,
       loadingBuilder: (context, event) => const Center(child: CircularProgressIndicator()),
       errorBuilder: (context, error, stackTrace) => const Center(
         child: Column(
